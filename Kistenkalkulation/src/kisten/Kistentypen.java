@@ -8,10 +8,19 @@ import java.util.ArrayList;
 public class Kistentypen {
 
 	protected ArrayList<Kiste> kistentypen;
+	private static double kistenfuellgrad = 1;
 	
 	public Kistentypen() {
 		kistentypen  = new ArrayList<Kiste>();
 		leseKistenTypen();
+	}
+
+	public double getKistenfuellgrad() {
+		return kistenfuellgrad;
+	}
+
+	public static void setKistenfuellgrad(double kfg) {
+		kistenfuellgrad = kfg;
 	}
 	
 	public void addKiste(Kiste kiste) {
@@ -40,7 +49,7 @@ public class Kistentypen {
 	
 	public void leseKistenTypen() {
 		try {
-			FileReader dateileser = new FileReader("src/Kisten/Kistentypen.txt");
+			FileReader dateileser = new FileReader("src/kisten/Kistentypen.txt");
 			BufferedReader dateiausleser = new BufferedReader(dateileser);
 			String line, kistendaten[];
 			
