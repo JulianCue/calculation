@@ -74,7 +74,7 @@ public class Benutzeroberflaeche {
 		gbc_btnDatei_auswaehlen.gridy = 0;
 		frame.getContentPane().add(btnDatei_auswaehlen, gbc_btnDatei_auswaehlen);
 		
-		JButton btnFuellgrad_setzen = new JButton("Faellgrad setzen");
+		JButton btnFuellgrad_setzen = new JButton("Fuellgrad setzen");
 		GridBagConstraints gbc_btnFuellgrad_setzen = new GridBagConstraints();
 		gbc_btnFuellgrad_setzen.gridx = 0;
 		gbc_btnFuellgrad_setzen.gridy = 1;
@@ -88,7 +88,7 @@ public class Benutzeroberflaeche {
 		
 		btnFuellgrad_setzen.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				String kfg = JOptionPane.showInputDialog("Wie hoch soll der Faellgrad sein(zwischen 0.01 & 1):");
+				String kfg = JOptionPane.showInputDialog("Wie hoch soll der Fuellgrad sein(zwischen 0.01 & 1):");
 				Kistentypen.setKistenfuellgrad(Double.parseDouble(kfg.replace(",", ".")));
 			}
 		});
