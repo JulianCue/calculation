@@ -27,6 +27,7 @@ public class Berechnung {
 	
 	public static void setInput(File f) {
 		input = new File(f.getAbsolutePath());
+		System.out.println("test");
 	}
 
 }

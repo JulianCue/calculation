@@ -1,4 +1,4 @@
-package benutzeroberfläche;
+package benutzeroberfl�che;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import kisten.Kistentypen;
 import berechnungen.Berechnung;
 
-public class Benutzeroberfläche {
+public class Benutzeroberflaeche {
 
 	private JFrame frame;
 	
@@ -28,7 +28,7 @@ public class Benutzeroberfläche {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Benutzeroberfläche window = new Benutzeroberfläche();
+					Benutzeroberflaeche window = new Benutzeroberflaeche();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class Benutzeroberfläche {
 	/**
 	 * Create the application.
 	 */
-	public Benutzeroberfläche() {
+	public Benutzeroberflaeche() {
 		initialize();
 	}
 
@@ -58,7 +58,7 @@ public class Benutzeroberfläche {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JButton btnDatei_auswaehlen = new JButton("Datei auswählen");
+		JButton btnDatei_auswaehlen = new JButton("Datei auswaehlen");
 		btnDatei_auswaehlen.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -74,7 +74,7 @@ public class Benutzeroberfläche {
 		gbc_btnDatei_auswaehlen.gridy = 0;
 		frame.getContentPane().add(btnDatei_auswaehlen, gbc_btnDatei_auswaehlen);
 		
-		JButton btnFuellgrad_setzen = new JButton("Füllgrad setzen");
+		JButton btnFuellgrad_setzen = new JButton("Faellgrad setzen");
 		GridBagConstraints gbc_btnFuellgrad_setzen = new GridBagConstraints();
 		gbc_btnFuellgrad_setzen.gridx = 0;
 		gbc_btnFuellgrad_setzen.gridy = 1;
@@ -88,7 +88,7 @@ public class Benutzeroberfläche {
 		
 		btnFuellgrad_setzen.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				String kfg = JOptionPane.showInputDialog("Wie hoch soll der Füllgrad sein(zwischen 0.01 & 1):");
+				String kfg = JOptionPane.showInputDialog("Wie hoch soll der Faellgrad sein(zwischen 0.01 & 1):");
 				Kistentypen.setKistenfuellgrad(Double.parseDouble(kfg.replace(",", ".")));
 			}
 		});
