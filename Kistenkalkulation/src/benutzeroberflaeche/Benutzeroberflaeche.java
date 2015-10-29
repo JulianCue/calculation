@@ -1,4 +1,4 @@
-package benutzeroberfläche;
+package benutzeroberflaeche;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
