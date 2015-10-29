@@ -1,4 +1,4 @@
-package Kisten;
+package kisten;
 
 public class KisteNotFoundException extends Exception {
 	private static final long serialVersionUID = -2945238249838732757L;

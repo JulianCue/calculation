@@ -1,4 +1,4 @@
-package Kisten;
+package kisten;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,7 +1,7 @@
-package Berechnungen;
+package berechnungen;
 
-import Kisten.KisteNotFoundException;
-import Kisten.Kistentypen;
+import kisten.KisteNotFoundException;
+import kisten.Kistentypen;
 
 public class Main {
 

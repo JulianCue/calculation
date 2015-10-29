@@ -1,4 +1,4 @@
-package Kisten;
+package kisten;
 
 public class Kiste {
 
