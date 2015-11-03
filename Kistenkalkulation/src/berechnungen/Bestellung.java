@@ -3,13 +3,15 @@ package berechnungen;
 public class Bestellung {
 
 	private String kunde, artikel;
-	private int tour, bestellnummer, volumen, mtv_nummer;
-	private double menge;
+	private int tour, bestellnummer, mtv_nummer;
+	private double menge, volumen;
 	
-	public Bestellung(String k, String a, int t, int bn, int v, int mtv, int m) {
+	public Bestellung(int t, String k, int bn, String a, double m, double v, int mtv) {
 		setKunde(k);
 		setArtikel(a);
 		setTour(t);
+		setBestellnummer(bn);
+		setVolumen(v);
 		setMtv_nummer(mtv);
 		setMenge(m);
 	}
@@ -46,11 +48,11 @@ public class Bestellung {
 		this.bestellnummer = bestellnummer;
 	}
 
-	public int getVolumen() {
+	public double getVolumen() {
 		return volumen;
 	}
 
-	public void setVolumen(int volumen) {
+	public void setVolumen(double volumen) {
 		this.volumen = volumen;
 	}
 

@@ -20,7 +20,9 @@ public class Kistentypen {
 	}
 
 	public static void setKistenfuellgrad(double kfg) {
-		kistenfuellgrad = kfg;
+		if(kfg >= Math.pow(10, -4) && kfg <= 1) {
+			kistenfuellgrad = kfg;
+		}
 	}
 	
 	public void addKiste(Kiste kiste) {

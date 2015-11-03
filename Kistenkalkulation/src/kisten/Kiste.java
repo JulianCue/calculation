@@ -4,6 +4,7 @@ public class Kiste {
 
 	private int mtv_nummer;
 	private int volumen;
+	private double aktuellerFuellgrad;
 	
 	public Kiste(int mtv, int v) {
 		mtv_nummer = mtv;
@@ -24,6 +25,14 @@ public class Kiste {
 	
 	public void setMtv_nummer(int mtv_nummer) {
 		this.mtv_nummer = mtv_nummer;
+	}
+
+	public double getAktuellerFuellgrad() {
+		return aktuellerFuellgrad;
+	}
+
+	public void setAktuellerFuellgrad(double aktuellerFuellgrad) {
+		this.aktuellerFuellgrad = aktuellerFuellgrad;
 	}
 	
 	public String toString() {
