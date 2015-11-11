@@ -1,14 +1,46 @@
 package kisten;
 
+import java.util.ArrayList;
+
+import berechnungen.Bestellung;
+
 public class Kiste {
 
 	private int mtv_nummer;
 	private int volumen;
-	private double aktuellerFuellgrad;
+	private int aktuellesVolumen;
+	private int tourID;
+	private double kistenfuellgrad = 1;
+	private String kunde;
+	private ArrayList<Bestellung> bestellungen;
 	
-	public Kiste(int mtv, int v) {
+	
+	public Kiste(int v, int mtv) {
 		mtv_nummer = mtv;
 		volumen = v;
+		bestellungen = new ArrayList<>();
+		aktuellesVolumen = 0;
+	}
+	
+	public double getKistenfuellgrad() {
+		return kistenfuellgrad;
+	}
+
+	public void setKistenfuellgrad(double kistenfuellgrad) {
+		this.kistenfuellgrad = kistenfuellgrad;
+	}
+	
+	public void addBestellung(Bestellung bestellung) {
+		bestellungen.add(bestellung);
+		aktuellesVolumen += bestellung.getVolumen() * bestellung.getMenge();
+	}
+	
+	public boolean passtInKiste(Bestellung bestellung) {
+		return (((aktuellesVolumen + bestellung.getVolumen() * bestellung.getMenge())/volumen) 
+				<= kistenfuellgrad) &&
+				kunde.equals(bestellung.getKunde()) &&
+				(mtv_nummer == bestellung.getMtv_nummer() &&
+				bestellung.getTour() == tourID);
 	}
 	
 	public int getVolumen() {
@@ -27,15 +59,23 @@ public class Kiste {
 		this.mtv_nummer = mtv_nummer;
 	}
 
-	public double getAktuellerFuellgrad() {
-		return aktuellerFuellgrad;
+	public String getKunde() {
+		return kunde;
 	}
 
-	public void setAktuellerFuellgrad(double aktuellerFuellgrad) {
-		this.aktuellerFuellgrad = aktuellerFuellgrad;
+	public void setKunde(String kunde) {
+		this.kunde = kunde;
+	}
+	
+	public void setTourID(int tourID) {
+		this.tourID = tourID;
 	}
 	
 	public String toString() {
-		return mtv_nummer + ";" + volumen;
+		String ret = "";
+		for(Bestellung b : bestellungen) {
+			ret += b.toString() + "\n";
+		}
+		return ret;
 	}
 }

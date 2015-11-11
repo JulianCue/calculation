@@ -95,7 +95,7 @@ public class Benutzeroberflaeche {
 		
 		btnBerechnung_starten.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(ready) {
+				if(true) {
 					new Berechnung();
 				}
 				

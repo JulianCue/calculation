@@ -6,22 +6,33 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kisten.Kiste;
 import kisten.KisteNotFoundException;
 import kisten.Kistentypen;
 
 public class Berechnung {
 
-	private static File input;
+	private static File input = new File("C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
 	
 	private ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+	private ArrayList<Kiste> kisten = new ArrayList<>();
+	private Kistentypen typ;
 	
+	@SuppressWarnings("unused")
 	public Berechnung() {
 
-		Kistentypen typ = new Kistentypen();	
+		typ = new Kistentypen();	
+		
+		System.out.println(typ.toString());
 		
 		bestellungenEinlesen();
+		befuelleKisten();
 		
-		System.out.println(bestellungen.get(0).toString());
+		int i = 1;
+		for(Kiste k: kisten) {
+			System.out.print("Kiste: "+i+ "\n" +k.toString());
+			i++;
+		}
 	}
 	
 	public void addBestellung(Bestellung bestellung) {
@@ -57,6 +68,35 @@ public class Berechnung {
 	public static void setInput(File f) {
 		input = new File(f.getAbsolutePath());
 		System.out.println("test");
+	}
+	
+	public void befuelleKisten(){
+		int mtv;
+		boolean verpackt = false;
+		for (Bestellung b : bestellungen){
+			mtv = b.getMtv_nummer();
+			try {
+				for(Kiste k : kisten) {
+					if(k.passtInKiste(b)) {
+						k.addBestellung(b);
+						verpackt = true;
+						break;
+					}
+				}
+				
+				if(!verpackt) {
+					Kiste a = new Kiste(typ.getKisteByMtv(mtv).getVolumen(), mtv);
+					a.setKunde(b.getKunde());
+					a.addBestellung(b);
+					a.setTourID(b.getTour());
+					kisten.add(a);
+				}
+				verpackt = false;
+			} catch (KisteNotFoundException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
 	}
 
 }

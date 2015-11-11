@@ -59,6 +59,7 @@ public class Kistentypen {
 				kistendaten = line.split(";");
 				addKiste(new Kiste(Integer.parseInt(kistendaten[0]),
 								   Integer.parseInt(kistendaten[1])));
+				kistentypen.get(kistentypen.size()-1).setKistenfuellgrad(kistenfuellgrad);
 			}
 			
 			dateiausleser.close();
@@ -67,5 +68,13 @@ public class Kistentypen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String toString() {
+		String ret = "";
+		for(Kiste k : kistentypen) {
+			ret += (k.getMtv_nummer() +";"+ k.getVolumen());
+		}
+		return ret;
 	}
 }

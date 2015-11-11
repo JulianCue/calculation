@@ -1,1 +1,4 @@
 1;McDonalds;4711;Gurken;5;0,05;12
+2;McDonalds;4711;Tomaten;5;0,02;12
+1;McDonalds;4711;Brot;6;0,5;13
+1;McDonalds;4711;Hackfleisch;10;2;13
