@@ -32,7 +32,7 @@ public class Berechnung {
 		typ = new Kistentypen();
 		
 		bestellungenEinlesen();
-		sortiereBestellungen();
+		sortiereBestellungen(0);
 		befuelleKisten();
 		
 		System.out.println(erstelleAusgabe());
@@ -82,6 +82,7 @@ public class Berechnung {
 	 * Erstellt ansonsten eine neue Kiste.
 	 */
 	public void befuelleKisten(){
+		sortiereBestellungen(1);
 		int mtv;
 		boolean verpackt = false;
 		int i = 1;
@@ -114,12 +115,25 @@ public class Berechnung {
 	/**
 	 * Sortiert alle Bestellungen nach Kunde und Volumen(absteigend)
 	 */
-	public void sortiereBestellungen() {
-		for(int i = 0; i < bestellungen.size()-1; i++) {
-			for(int j = i; j < bestellungen.size(); j++) {
-				if(((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen())) &&
-						bestellungen.get(i).getKunde().equals(bestellungen.get(j).getKunde())) {
-					Collections.swap(bestellungen, i, j);
+	public void sortiereBestellungen(int a) {
+		if(a == 0) {
+			for(int i = 0; i < bestellungen.size()-1; i++) {
+				for(int j = i; j < bestellungen.size(); j++) {
+					if(((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen()))) {
+						Collections.swap(bestellungen, i, j);
+					}
+				}
+			}
+		}
+		
+		else if(a == 1) {
+			for(int i = 0; i < bestellungen.size()-1; i++) {
+				for(int j = i; j < bestellungen.size(); j++) {
+					int b = 1;
+					if(bestellungen.get(i).getBestellnummer() == bestellungen.get(j).getBestellnummer()) {
+						Collections.swap(bestellungen, i+b, j);
+						b++;
+					}
 				}
 			}
 		}
@@ -136,15 +150,15 @@ public class Berechnung {
 		for(int i = 1; i <= Kiste.getMaxTourID(); i++) {
 			ausgabe.append("Tour " +i+ "\n");
 			for(Kiste k : kisten) {
-				kunde = k.getKunde();
-				bestellnummer = k.getBestellnummer();
 				if(k.getTourID() == i) {
+					kunde = k.getKunde();
+					bestellnummer = k.getBestellnummer();
 					if(!lastKunde.equals(kunde)) {
 						ausgabe.append("\t" +kunde+ "\n");
 						lastKunde = kunde;
 					}
 					if(lastBestellnummer != bestellnummer) {
-						ausgabe.append("\t\t" +bestellnummer+" (Bestellung)\n");
+						ausgabe.append("\t\t" +bestellnummer+"(Bestellung)\n");
 						lastBestellnummer = bestellnummer;
 					}
 					
@@ -154,6 +168,8 @@ public class Berechnung {
 					}
 				}
 			}
+			lastBestellnummer = 0;
+			lastKunde = "";
 		}
 		return ausgabe.toString();
 	}

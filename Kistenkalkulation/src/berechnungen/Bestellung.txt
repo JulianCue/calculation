@@ -1,4 +1,4 @@
 1;McDonalds;1414;Gurken;5;0,01;12
-1;McDonalds;4231;Tomaten;5;0,02;12
+2;McDonalds;4231;Tomaten;5;0,02;12
 1;Burger King;6222;Brot;6;0,5;13
 1;McDonalds;1414;Hackfleisch;10;2;13
