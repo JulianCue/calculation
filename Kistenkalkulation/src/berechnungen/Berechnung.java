@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import kisten.Kiste;
 import kisten.KisteNotFoundException;
@@ -12,25 +13,24 @@ import kisten.Kistentypen;
 
 public class Berechnung {
 
-	private static File input = new File("C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+	//private static File input = new File("C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+	private static File input = new File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
 	
 	private ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	private ArrayList<Kiste> kisten = new ArrayList<>();
 	private Kistentypen typ;
 	
-	@SuppressWarnings("unused")
 	public Berechnung() {
 
-		typ = new Kistentypen();	
-		
-		System.out.println(typ.toString());
+		typ = new Kistentypen();
 		
 		bestellungenEinlesen();
+		sortiereBestellungen();
 		befuelleKisten();
 		
 		int i = 1;
 		for(Kiste k: kisten) {
-			System.out.print("Kiste: "+i+ "\n" +k.toString());
+			System.out.print("Kiste: "+ i +"  "+ k.getKistenfuellgrad() +"\n"+ k.toString());
 			i++;
 		}
 	}
@@ -98,5 +98,16 @@ public class Berechnung {
 			}
 		}
 	}
+	
+	public void sortiereBestellungen() {
+		for(int i = 0; i < bestellungen.size()-1; i++) {
+			for(int j = i; j < bestellungen.size(); j++) {
+				if((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen())) {
+					Collections.swap(bestellungen, i, j);
+				}
+			}
+		}
+	}
+
 
 }

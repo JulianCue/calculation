@@ -10,7 +10,7 @@ public class Kiste {
 	private int volumen;
 	private int aktuellesVolumen;
 	private int tourID;
-	private double kistenfuellgrad = 1;
+	private static double kistenfuellgrad = 1;
 	private String kunde;
 	private ArrayList<Bestellung> bestellungen;
 	
@@ -26,8 +26,8 @@ public class Kiste {
 		return kistenfuellgrad;
 	}
 
-	public void setKistenfuellgrad(double kistenfuellgrad) {
-		this.kistenfuellgrad = kistenfuellgrad;
+	public static void setKistenfuellgrad(double kfg) {
+		kistenfuellgrad = kfg;
 	}
 	
 	public void addBestellung(Bestellung bestellung) {

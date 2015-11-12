@@ -50,6 +50,7 @@ public class Kistentypen {
 	}
 	
 	public void leseKistenTypen() {
+		Kiste.setKistenfuellgrad(kistenfuellgrad);
 		try {
 			FileReader dateileser = new FileReader("src/kisten/Kistentypen.txt");
 			BufferedReader dateiausleser = new BufferedReader(dateileser);
@@ -59,7 +60,6 @@ public class Kistentypen {
 				kistendaten = line.split(";");
 				addKiste(new Kiste(Integer.parseInt(kistendaten[0]),
 								   Integer.parseInt(kistendaten[1])));
-				kistentypen.get(kistentypen.size()-1).setKistenfuellgrad(kistenfuellgrad);
 			}
 			
 			dateiausleser.close();
