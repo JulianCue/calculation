@@ -28,11 +28,7 @@ public class Berechnung {
 		sortiereBestellungen();
 		befuelleKisten();
 		
-		int i = 1;
-		for(Kiste k: kisten) {
-			System.out.print("Kiste: "+ i +"  "+ k.getKistenfuellgrad() +"\n"+ k.toString());
-			i++;
-		}
+		System.out.println(erstelleAusgabe());
 	}
 	
 	public void addBestellung(Bestellung bestellung) {
@@ -73,6 +69,7 @@ public class Berechnung {
 	public void befuelleKisten(){
 		int mtv;
 		boolean verpackt = false;
+		int i = 1;
 		for (Bestellung b : bestellungen){
 			mtv = b.getMtv_nummer();
 			try {
@@ -85,7 +82,7 @@ public class Berechnung {
 				}
 				
 				if(!verpackt) {
-					Kiste a = new Kiste(typ.getKisteByMtv(mtv).getVolumen(), mtv);
+					Kiste a = new Kiste(typ.getKisteByMtv(mtv).getVolumen(), mtv, i++, b.getBestellnummer());
 					a.setKunde(b.getKunde());
 					a.addBestellung(b);
 					a.setTourID(b.getTour());
@@ -102,11 +99,41 @@ public class Berechnung {
 	public void sortiereBestellungen() {
 		for(int i = 0; i < bestellungen.size()-1; i++) {
 			for(int j = i; j < bestellungen.size(); j++) {
-				if((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen())) {
+				if(((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen())) &&
+						bestellungen.get(i).getKunde().equals(bestellungen.get(j).getKunde())) {
 					Collections.swap(bestellungen, i, j);
 				}
 			}
 		}
+	}
+	
+	public String erstelleAusgabe() {
+		String lastKunde = "", kunde = "";
+		int lastBestellung = 0, bestellung = 0;
+		StringBuilder ausgabe = new StringBuilder();
+		for(int i = 1; i <= Kiste.getMaxTourID(); i++) {
+			ausgabe.append("Tour " +i+ "\n");
+			for(Kiste k : kisten) {
+				kunde = k.getKunde();
+				bestellung = k.getBestellnummer();
+				if(k.getTourID() == i) {
+					if(!lastKunde.equals(kunde)) {
+						ausgabe.append("\t" +kunde+ "\n");
+						lastKunde = kunde;
+					}
+					if(lastBestellung != bestellung) {
+						ausgabe.append("\t\t"+bestellung+"(Bestellung)\n");
+						lastBestellung = bestellung;
+					}
+					
+					ausgabe.append("\t\t\tKiste " +k.getNummer()+ "\n");
+					for(Bestellung b : k.getBestellungen()) {
+						ausgabe.append("\t\t\t\t" + b.getArtikel() + " : " +b.getMenge()+ "\n");
+					}
+				}
+			}
+		}
+		return ausgabe.toString();
 	}
 
 
