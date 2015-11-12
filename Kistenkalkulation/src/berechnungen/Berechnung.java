@@ -20,8 +20,15 @@ public class Berechnung {
 	private ArrayList<Kiste> kisten = new ArrayList<>();
 	private Kistentypen typ;
 	
+	/**
+	 * Leitet die Berechnung ein und fuehrt alle noetigen Schritte durch:
+	 * 1. Kistentypen erstellen
+	 * 2. Bestellung einlesen
+	 * 3. Bestellungen sortieren
+	 * 4. Kisten befuellen
+	 * 5. Ausgabe erstellen
+	 */
 	public Berechnung() {
-
 		typ = new Kistentypen();
 		
 		bestellungenEinlesen();
@@ -35,6 +42,10 @@ public class Berechnung {
 		bestellungen.add(bestellung);
 	}
 	
+	/**
+	 * Liest in der Input-Datei alle Zeilen einzeln und 
+	 * erstellt dementsprechend alle zu bearbeitenden Bestellungen
+	 */
 	public void bestellungenEinlesen() {
 		try {
 			FileReader dateileser = new FileReader(input);
@@ -58,7 +69,6 @@ public class Berechnung {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void setInput(File f) {
@@ -66,6 +76,11 @@ public class Berechnung {
 		System.out.println("test");
 	}
 	
+	/**
+	 * Befuellt Kisten mit den Inhalten der Bestellungen.
+	 * Prueft zunaechst, ob die Bestellung in eine bereits vorhandende Kiste passt.
+	 * Erstellt ansonsten eine neue Kiste.
+	 */
 	public void befuelleKisten(){
 		int mtv;
 		boolean verpackt = false;
@@ -96,6 +111,9 @@ public class Berechnung {
 		}
 	}
 	
+	/**
+	 * Sortiert alle Bestellungen nach Kunde und Volumen(absteigend)
+	 */
 	public void sortiereBestellungen() {
 		for(int i = 0; i < bestellungen.size()-1; i++) {
 			for(int j = i; j < bestellungen.size(); j++) {
@@ -107,23 +125,27 @@ public class Berechnung {
 		}
 	}
 	
+	/**
+	 * Erstellt die Ausgabe im gewuenschten Format.
+	 * @return ausgabe
+	 */
 	public String erstelleAusgabe() {
 		String lastKunde = "", kunde = "";
-		int lastBestellung = 0, bestellung = 0;
+		int lastBestellnummer = 0, bestellnummer = 0;
 		StringBuilder ausgabe = new StringBuilder();
 		for(int i = 1; i <= Kiste.getMaxTourID(); i++) {
 			ausgabe.append("Tour " +i+ "\n");
 			for(Kiste k : kisten) {
 				kunde = k.getKunde();
-				bestellung = k.getBestellnummer();
+				bestellnummer = k.getBestellnummer();
 				if(k.getTourID() == i) {
 					if(!lastKunde.equals(kunde)) {
 						ausgabe.append("\t" +kunde+ "\n");
 						lastKunde = kunde;
 					}
-					if(lastBestellung != bestellung) {
-						ausgabe.append("\t\t"+bestellung+" (Bestellung)\n");
-						lastBestellung = bestellung;
+					if(lastBestellnummer != bestellnummer) {
+						ausgabe.append("\t\t" +bestellnummer+" (Bestellung)\n");
+						lastBestellnummer = bestellnummer;
 					}
 					
 					ausgabe.append("\t\t\tKiste " +k.getNummer()+ "\n");
