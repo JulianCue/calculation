@@ -122,13 +122,13 @@ public class Berechnung {
 						lastKunde = kunde;
 					}
 					if(lastBestellung != bestellung) {
-						ausgabe.append("\t\t"+bestellung+"(Bestellung)\n");
+						ausgabe.append("\t\t"+bestellung+" (Bestellung)\n");
 						lastBestellung = bestellung;
 					}
 					
 					ausgabe.append("\t\t\tKiste " +k.getNummer()+ "\n");
 					for(Bestellung b : k.getBestellungen()) {
-						ausgabe.append("\t\t\t\t" + b.getArtikel() + " : " +b.getMenge()+ "\n");
+						ausgabe.append("\t\t\t\t" + b.getArtikel() + ": " +b.getMenge()+ "\n");
 					}
 				}
 			}
