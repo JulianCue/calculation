@@ -32,6 +32,7 @@ public class Berechnung {
 		typ = new Kistentypen();
 		
 		bestellungenEinlesen();
+		sortiereBestellungen(1);
 		sortiereBestellungen(0);
 		befuelleKisten();
 		
@@ -128,9 +129,11 @@ public class Berechnung {
 		
 		else if(a == 1) {
 			for(int i = 0; i < bestellungen.size()-1; i++) {
-				for(int j = i; j < bestellungen.size(); j++) {
+				for(int j = i+1; j < bestellungen.size(); j++) {
 					int b = 1;
-					if(bestellungen.get(i).getBestellnummer() == bestellungen.get(j).getBestellnummer()) {
+					if(bestellungen.get(i).getBestellnummer() == bestellungen.get(j).getBestellnummer() || 
+							(bestellungen.get(i).getBestellnummer() != bestellungen.get(j).getBestellnummer() && 
+							bestellungen.get(i).getKunde().equals(bestellungen.get(j).getKunde()))) {
 						Collections.swap(bestellungen, i+b, j);
 						b++;
 					}
