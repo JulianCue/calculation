@@ -13,8 +13,8 @@ import kisten.Kistentypen;
 
 public class Berechnung {
 
-	//private static File input = new File("C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
-	private static File input = new File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+	private static File input = new File("C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+//	private static File input = new File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
 	
 	private ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	private ArrayList<Kiste> kisten = new ArrayList<>();
@@ -32,8 +32,7 @@ public class Berechnung {
 		typ = new Kistentypen();
 		
 		bestellungenEinlesen();
-		sortiereBestellungen(1);
-		sortiereBestellungen(0);
+		sortiereBestellungen();
 		befuelleKisten();
 		
 		System.out.println(erstelleAusgabe());
@@ -83,7 +82,6 @@ public class Berechnung {
 	 * Erstellt ansonsten eine neue Kiste.
 	 */
 	public void befuelleKisten(){
-		sortiereBestellungen(1);
 		int mtv;
 		boolean verpackt = false;
 		int i = 1;
@@ -116,30 +114,42 @@ public class Berechnung {
 	/**
 	 * Sortiert alle Bestellungen nach Kunde und Volumen(absteigend)
 	 */
-	public void sortiereBestellungen(int a) {
-		if(a == 0) {
-			for(int i = 0; i < bestellungen.size()-1; i++) {
-				for(int j = i; j < bestellungen.size(); j++) {
-					if(((bestellungen.get(i).getMenge() * bestellungen.get(i).getVolumen()) < (bestellungen.get(j).getMenge() * bestellungen.get(j).getVolumen()))) {
-						Collections.swap(bestellungen, i, j);
-					}
+	public void sortiereBestellungen() {
+		int b;
+		for(int i = 0; i < bestellungen.size()-1; i++) {
+			b = 1;
+			for(int j = i+1; j < bestellungen.size(); j++) {
+				if(bestellungen.get(i).getKunde().equals(bestellungen.get(j).getKunde())) {
+					Collections.swap(bestellungen, i+b, j);
+					b++;
 				}
 			}
 		}
 		
-		else if(a == 1) {
-			for(int i = 0; i < bestellungen.size()-1; i++) {
-				for(int j = i+1; j < bestellungen.size(); j++) {
-					int b = 1;
-					if(bestellungen.get(i).getBestellnummer() == bestellungen.get(j).getBestellnummer() || 
-							(bestellungen.get(i).getBestellnummer() != bestellungen.get(j).getBestellnummer() && 
-							bestellungen.get(i).getKunde().equals(bestellungen.get(j).getKunde()))) {
-						Collections.swap(bestellungen, i+b, j);
-						b++;
-					}
+		for(int i = 0; i < bestellungen.size()-1; i++) {
+			b = 1;
+			for(int j = i+1; j < bestellungen.size(); j++) {
+				if(bestellungen.get(i).getBestellnummer() == bestellungen.get(j).getBestellnummer()) {
+					Collections.swap(bestellungen, i+b, j);
+					b++;
 				}
 			}
 		}
+		
+		int max;
+		for(int i = 0; i < bestellungen.size()-1; i++) {
+			max = i;
+			for(int j = i+1; j < bestellungen.size(); j++) {
+				if((bestellungen.get(max).getBestellnummer() == bestellungen.get(j).getBestellnummer() &&
+						bestellungen.get(max).getKunde().equals(bestellungen.get(j).getKunde())) &&
+						(bestellungen.get(max).getMenge()*bestellungen.get(max).getVolumen()) < 
+						(bestellungen.get(j).getMenge()*bestellungen.get(j).getVolumen())) {
+					max = j;
+				}
+			}
+			Collections.swap(bestellungen, i, max);
+		}
+		
 	}
 	
 	/**
