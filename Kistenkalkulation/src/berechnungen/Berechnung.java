@@ -42,6 +42,10 @@ public class Berechnung {
 		bestellungen.add(bestellung);
 	}
 	
+	public ArrayList<Kiste> getKisten() {
+		return kisten;
+	}
+	
 	/**
 	 * Liest in der Input-Datei alle Zeilen einzeln und 
 	 * erstellt dementsprechend alle zu bearbeitenden Bestellungen

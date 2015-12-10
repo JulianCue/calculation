@@ -52,7 +52,7 @@ public class Kistentypen {
 	public void leseKistenTypen() {
 		Kiste.setKistenfuellgrad(kistenfuellgrad);
 		try {
-			FileReader dateileser = new FileReader("src/kisten/Kistentypen.txt");
+			FileReader dateileser = new FileReader("src/tests/Kistentypen.txt");
 			BufferedReader dateiausleser = new BufferedReader(dateileser);
 			String line, kistendaten[];
 			

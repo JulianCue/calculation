@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import berechnungen.Bestellung;
 
-public class Kiste {
+public class Kiste implements Comparable<Kiste> {
 
+	
 	private int mtv_nummer;
 	private int volumen;
 	private int aktuellesVolumen;
@@ -112,5 +113,27 @@ public class Kiste {
 			ret += b.toString() + "\n";
 		}
 		return ret;
+	}
+
+	@Override
+	public int compareTo(Kiste o) {
+		return 0;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Bestellung a, b;
+		for(int i = 0; i < bestellungen.size(); i++) {
+			a = bestellungen.get(i);
+			b = ((Kiste)obj).bestellungen.get(i);
+			
+			if(!a.getArtikel().equals(b.getArtikel()) && a.getBestellnummer() != b.getBestellnummer() &&
+					!a.getKunde().equals(b.getKunde()) && a.getMenge() != a.getMenge() &&
+					a.getMtv_nummer() != b.getMtv_nummer() && a.getTour() != b.getTour() &&
+					a.getVolumen() != b.getVolumen()) {
+						return false;
+					}
+		}
+		return true;
 	}
 }
