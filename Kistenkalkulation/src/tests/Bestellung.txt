@@ -1,0 +1,1 @@
+1;McDonalds;1414;Gurken;5;0,01;12
