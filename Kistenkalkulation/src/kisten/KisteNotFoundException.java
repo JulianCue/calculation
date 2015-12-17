@@ -6,7 +6,7 @@ public class KisteNotFoundException extends Exception {
 	public KisteNotFoundException() {
 		super("Kiste nicht gefunden, programm beendet!");
 	}
-	
+
 	public KisteNotFoundException(String msg) {
 		super(msg);
 	}

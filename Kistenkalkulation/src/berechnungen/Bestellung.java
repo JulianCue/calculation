@@ -5,8 +5,9 @@ public class Bestellung {
 	private String kunde, artikel;
 	private int tour, bestellnummer, mtv_nummer;
 	private double menge, volumen;
-	
-	public Bestellung(int t, String k, int bn, String a, double m, double v, int mtv) {
+
+	public Bestellung(int t, String k, int bn, String a, double m, double v,
+			int mtv) {
 		setKunde(k);
 		setArtikel(a);
 		setTour(t);
@@ -71,9 +72,9 @@ public class Bestellung {
 	public void setMenge(double menge) {
 		this.menge = menge;
 	}
-	
+
 	public String toString() {
-		return tour + ";" + kunde + ";" + bestellnummer + ";" + 
-				artikel + ";" + menge + ";" + volumen + ";" + mtv_nummer; 
+		return tour + ";" + kunde + ";" + bestellnummer + ";" + artikel + ";"
+				+ menge + ";" + volumen + ";" + mtv_nummer;
 	}
 }
