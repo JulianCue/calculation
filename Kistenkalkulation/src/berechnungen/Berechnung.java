@@ -1,5 +1,6 @@
 package berechnungen;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,10 +16,7 @@ import kisten.Kistentypen;
 
 public class Berechnung {
 
-//	private static File input = new File(
-//			"C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
-	 private static File input = new
-	 File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+	private static File input;
 
 	private ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	private ArrayList<Kiste> kisten = new ArrayList<>();
@@ -203,30 +201,26 @@ public class Berechnung {
 		StringBuilder ausgabeRegal = new StringBuilder();
 		for (int i = 1; i <= Kiste.getMaxTourID(); i++) {
 			ausgabeArbeiter.append("Tour " + i + "\n");
-			ausgabeRegal.append("Tour;" + i);
 			for (Kiste k : kisten) {
 				if (k.getTourID() == i) {
 					kunde = k.getKunde();
 					bestellnummer = k.getBestellnummer();
 					if (!lastKunde.equals(kunde)) {
 						ausgabeArbeiter.append("\t" + kunde + "\n");
-						ausgabeRegal.append(";" + kunde);
 						lastKunde = kunde;
 					}
 					if (lastBestellnummer != bestellnummer) {
 						ausgabeArbeiter.append("\t\t" + bestellnummer
 								+ "(Bestellung)\n");
-						ausgabeRegal.append(";" + bestellnummer);
 						lastBestellnummer = bestellnummer;
 					}
-					ausgabeRegal.append(";Kiste;" + k.getNummer());
 					ausgabeArbeiter.append("\t\t\tKiste " + k.getNummer()
 							+ "\n");
 					for (Bestellung b : k.getBestellungen()) {
 						ausgabeArbeiter.append("\t\t\t\t" + b.getArtikel()
 								+ ": " + b.getMenge() + "\n");
-						ausgabeRegal.append(";" + b.getArtikel() + ";"
-								+ b.getMenge());
+						ausgabeRegal.append(b.getArtikel() + ";"
+								+ b.getMenge() + "\n");
 					}
 				}
 			}
@@ -253,7 +247,7 @@ public class Berechnung {
 		return ausgabeArbeiter.toString();
 	}
 
-	/*public void drucken() throws IOException {
+	public void drucken() throws IOException {
 		String ausdruck = "Ausgabedatei_Lagermitarbeiter.txt";
 		File ausdruckfile = new File(ausdruck);
 		if (Desktop.isDesktopSupported()) {
@@ -264,5 +258,5 @@ public class Berechnung {
 				e.printStackTrace();
 			}
 		}
-	}*/
+	}
 }

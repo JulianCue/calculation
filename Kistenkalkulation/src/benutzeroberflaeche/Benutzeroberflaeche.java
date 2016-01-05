@@ -65,6 +65,13 @@ public class Benutzeroberflaeche {
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		JButton btnDatei_auswaehlen = new JButton("Datei auswaehlen");
+		GridBagConstraints gbc_btnDatei_auswaehlen = new GridBagConstraints();
+		gbc_btnDatei_auswaehlen.insets = new Insets(0, 0, 5, 0);
+		gbc_btnDatei_auswaehlen.gridx = 0;
+		gbc_btnDatei_auswaehlen.gridy = 0;
+		frame.getContentPane()
+				.add(btnDatei_auswaehlen, gbc_btnDatei_auswaehlen);
+		
 		btnDatei_auswaehlen.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -75,12 +82,6 @@ public class Benutzeroberflaeche {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnDatei_auswaehlen = new GridBagConstraints();
-		gbc_btnDatei_auswaehlen.insets = new Insets(0, 0, 5, 0);
-		gbc_btnDatei_auswaehlen.gridx = 0;
-		gbc_btnDatei_auswaehlen.gridy = 0;
-		frame.getContentPane()
-				.add(btnDatei_auswaehlen, gbc_btnDatei_auswaehlen);
 
 		JButton btnFuellgrad_setzen = new JButton("Fuellgrad setzen");
 		GridBagConstraints gbc_btnFuellgrad_setzen = new GridBagConstraints();
@@ -90,19 +91,21 @@ public class Benutzeroberflaeche {
 		frame.getContentPane()
 				.add(btnFuellgrad_setzen, gbc_btnFuellgrad_setzen);
 		
+		btnFuellgrad_setzen.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				String kfg = JOptionPane
+						.showInputDialog("Wie hoch soll der Fuellgrad sein(zwischen 0.01 & 1):");
+				Kistentypen.setKistenfuellgrad(Double.parseDouble(kfg.replace(
+						",", ".")));
+			}
+		});
+		
 		JButton btnNummern_kreis = new JButton("Nummernkreis auswaehlen");
 		GridBagConstraints gbc_btnNummern_kreis = new GridBagConstraints();
 		gbc_btnNummern_kreis.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNummern_kreis.gridx = 0;
 		gbc_btnNummern_kreis.gridy = 2;
 		frame.getContentPane().add(btnNummern_kreis, gbc_btnNummern_kreis);
-
-		JButton btnBerechnung_starten = new JButton("Berechnung bereit");
-		GridBagConstraints gbc_btnBerechnung_starten = new GridBagConstraints();
-		gbc_btnBerechnung_starten.gridx = 0;
-		gbc_btnBerechnung_starten.gridy = 3;
-		frame.getContentPane().add(btnBerechnung_starten,
-				gbc_btnBerechnung_starten);
 
 		btnNummern_kreis.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -118,19 +121,17 @@ public class Benutzeroberflaeche {
 				Berechnung.setNummernkreis(von, bis);
 			}
 		});
-		
-		btnFuellgrad_setzen.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				String kfg = JOptionPane
-						.showInputDialog("Wie hoch soll der Fuellgrad sein(zwischen 0.01 & 1):");
-				Kistentypen.setKistenfuellgrad(Double.parseDouble(kfg.replace(
-						",", ".")));
-			}
-		});
+
+		JButton btnBerechnung_starten = new JButton("Berechnung bereit");
+		GridBagConstraints gbc_btnBerechnung_starten = new GridBagConstraints();
+		gbc_btnBerechnung_starten.gridx = 0;
+		gbc_btnBerechnung_starten.gridy = 3;
+		frame.getContentPane().add(btnBerechnung_starten,
+				gbc_btnBerechnung_starten);
 
 		btnBerechnung_starten.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (true) {
+				if (ready) {
 					try {
 						Date now ;
 						int hourNow;
@@ -141,7 +142,7 @@ public class Benutzeroberflaeche {
 							now = new Date(System.currentTimeMillis());
 							hourNow = Integer.valueOf(hourFormatter.format(now));
 							
-							if(hourNow == 10) {
+							if(hourNow == 22) {
 								new Berechnung();
 								window.frame.setVisible(true);
 								break;
@@ -152,6 +153,7 @@ public class Benutzeroberflaeche {
 					} catch (IOException | InterruptedException e1) {
 						e1.printStackTrace();
 					}
+					ready = false;
 				}
 
 				else {
