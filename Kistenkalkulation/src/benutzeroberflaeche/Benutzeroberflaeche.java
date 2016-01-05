@@ -64,7 +64,7 @@ public class Benutzeroberflaeche {
 				Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
-		JButton btnDatei_auswaehlen = new JButton("Datei auswaehlen");
+		JButton btnDatei_auswaehlen = new JButton("Dateien auswaehlen");
 		GridBagConstraints gbc_btnDatei_auswaehlen = new GridBagConstraints();
 		gbc_btnDatei_auswaehlen.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDatei_auswaehlen.gridx = 0;
@@ -78,7 +78,12 @@ public class Benutzeroberflaeche {
 				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = chooser.getSelectedFile();
 					Berechnung.setInput(selectedFile);
-					ready = true;
+					chooser = new JFileChooser();
+					if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+						selectedFile = chooser.getSelectedFile();
+						Kistentypen.setInput(selectedFile);
+						ready = true;
+					}
 				}
 			}
 		});

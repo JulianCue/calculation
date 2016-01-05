@@ -44,7 +44,7 @@ public class Berechnung {
 
 		System.out.println(erstelleAusgabe());
 
-		//drucken();
+//		drucken();
 	}
 
 	public void addBestellung(Bestellung bestellung) {
@@ -224,7 +224,6 @@ public class Berechnung {
 					}
 				}
 			}
-			ausgabeRegal.append("\n");
 			lastBestellnummer = 0;
 			lastKunde = "";
 		}
@@ -241,13 +240,16 @@ public class Berechnung {
 			writerRegal = new FileWriter(fileRegal);
 			writerRegal.write(ausgabeRegal.toString());
 			writerRegal.flush();
+			
+			writerArbeiter.close();
+			writerRegal.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return ausgabeArbeiter.toString();
 	}
 
-	public void drucken() throws IOException {
+	/*public void drucken() throws IOException {
 		String ausdruck = "Ausgabedatei_Lagermitarbeiter.txt";
 		File ausdruckfile = new File(ausdruck);
 		if (Desktop.isDesktopSupported()) {
@@ -258,5 +260,5 @@ public class Berechnung {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 }

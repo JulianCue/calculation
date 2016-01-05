@@ -1,4 +1,0 @@
-1;McDonalds;1414;Gurken;7;0,01;12
-1;McDonalds;1414;Toast;10;1;12
-2;McDonalds;1414;Gurken;3;0,2;12
-2;McDonalds;1414;Fleisch;5;0,5;12
