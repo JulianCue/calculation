@@ -15,10 +15,10 @@ import kisten.Kistentypen;
 
 public class Berechnung {
 
-	private static File input = new File(
-			"C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
-	// private static File input = new
-	// File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+//	private static File input = new File(
+//			"C://Users//le.peters//SE-Projekt//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
+	 private static File input = new
+	 File("//home//j.cuepper//Dokumente//Klausuren 3. Semester//Software Engineering//Projekt//projects//calculation//Kistenkalkulation//src//berechnungen//Bestellung.txt");
 
 	private ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	private ArrayList<Kiste> kisten = new ArrayList<>();

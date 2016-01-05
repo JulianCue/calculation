@@ -90,7 +90,7 @@ public class Benutzeroberflaeche {
 		frame.getContentPane()
 				.add(btnFuellgrad_setzen, gbc_btnFuellgrad_setzen);
 		
-		JButton btnNummern_kreis = new JButton("Nummernkreis auswählen");
+		JButton btnNummern_kreis = new JButton("Nummernkreis auswaehlen");
 		GridBagConstraints gbc_btnNummern_kreis = new GridBagConstraints();
 		gbc_btnNummern_kreis.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNummern_kreis.gridx = 0;
@@ -141,7 +141,7 @@ public class Benutzeroberflaeche {
 							now = new Date(System.currentTimeMillis());
 							hourNow = Integer.valueOf(hourFormatter.format(now));
 							
-							if(hourNow == 14) {
+							if(hourNow == 10) {
 								new Berechnung();
 								window.frame.setVisible(true);
 								break;
