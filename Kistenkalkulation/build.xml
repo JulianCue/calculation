@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<project name="calculation" default="archive">
+
+<description>
+        Programm zur Kistenbefüllung
+</description>
+
+<property name="etc" value="dist/data"/>
+<property name="build" value="build/classes"/>
+<property name="project.prj.lc" value="src"/>
+
+  <path id="calculation.class.path">
+    <pathelement location="build/classes/"/>
+    <pathelement path="${java.class.path}/"/>
+    <pathelement path="dist/data/lang/"/>
+  </path>
+
+  <target name ="help" description="Zeigt die Hilfestellungen an">
+          <echo>Die Ziele des Projektes:
+ -....
+ -....
+ -....
+ Das Projekt &quot;accounting&quot; zeigt verschiedene Schritte und Taetigkeiten,
+ die bei der Durchfuehrung eines Projektes durchzufuehren sind.
+          </echo>
+  </target>
+
+  <target name="init">
+    <mkdir dir="build/classes"/>
+    <mkdir dir="dist"/>
+  </target>
+
+    <target name="archive-application" depends="compile" description="create a Java
+            archieve of an executable program">
+      <jar destfile="dist/Project-app.jar"
+           basedir="${build}"
+           excludes="**/package/*, **/testcases/*"/>
+      </target>
+
+  <target name="compile" depends="init">
+    <javac includeAntRuntime="false" srcdir="src" destdir="build/classes"
+           debug="true" debuglevel="lines,vars,source">
+      <classpath refid="calculation.class.path"/>
+    </javac>
+  </target>
+
+  <target name="archive" depends="compile">
+    <jar destfile="dist/calculation.jar"
+        basedir="build/classes"/>
+  </target>
+
+  <target name="create-dirs">
+    <mkdir dir="build/classes/package/de"/>
+    <mkdir dir="dist/data"/>
+  </target>
+
+  <target name="delete-dirs-carefully" depends="delete-language-links">
+          <delete dir="build"/>
+          <delete dir="dist"/>
+  </target>
+
+  <target name="test-remove-language-links">
+          <condition property="isADir">
+                  <available file="./dist/data/lang" type="dir"/>
+          </condition>
+  </target>
+
+  <target name="delete-language-links" depends ="test-remove-language-links" if="isADir">
+          <exec executable="rm" error="/dev/null" os="Linux">
+                  <arg file="./dist/data/lang"/>
+          </exec>
+  </target>
+
+  <target name ="execute-jar" depends ="archive">
+    <java classpath ="dist/calculation.jar"
+          classname="benutzeroberflaeche.Benutzeroberflaeche">
+      <classpath refid="calculation.class.path"/>
+    </java>
+  </target>
+
+  <target name ="execute" depends ="compile">
+    <java classpath ="build/classes"
+          classname="benutzeroberflaeche.Benutzeroberflaeche">
+    </java>
+  </target>
+
+  <target name="clean" depends="init,delete-language-links">
+    <delete dir="build"/>
+    <delete dir="dist"/>
+  </target>
+
+</project>
