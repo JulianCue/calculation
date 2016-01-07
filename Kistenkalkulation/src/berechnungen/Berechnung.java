@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import kisten.Kiste;
 import kisten.KisteNotFoundException;
 import kisten.Kistentypen;
@@ -33,8 +35,9 @@ public class Berechnung {
 	 * Kistentypen erstellen 2. Bestellung einlesen 3. Bestellungen sortieren 4.
 	 * Kisten befuellen 5. Ausgabe erstellen
 	 * 
-	 * @throws IOException
+	 * @throws IOException, falls Datei nicht gefunden wird
 	 */
+	
 	public Berechnung() throws IOException {
 		typ = new Kistentypen();
 
@@ -44,7 +47,7 @@ public class Berechnung {
 
 		System.out.println(erstelleAusgabe());
 
-//		drucken();
+		drucken();
 	}
 
 	public void addBestellung(Bestellung bestellung) {
@@ -55,10 +58,35 @@ public class Berechnung {
 		return kisten;
 	}
 
+	public static void setInput(File f) {
+		input = new File(f.getAbsolutePath());
+	}
+	
+	public static void setNummernkreis(int v, int b) {
+		if( Math.abs(v) <=  Math.abs(b)){
+			von = Math.abs(v);
+			bis = Math.abs(b);
+		}else{
+			von = Math.abs(b);
+			bis = Math.abs(v);
+		}
+	}
+
+	private int getNummer() {
+		Random r = new Random();
+		int zahl = r.nextInt(bis-von+1);
+		while(benutzteNummern.contains(zahl)) {
+			zahl = r.nextInt(bis-von+1);
+		}
+		benutzteNummern.add(zahl);
+		return zahl;
+	}
+
 	/**
 	 * Liest in der Input-Datei alle Zeilen einzeln und erstellt dementsprechend
 	 * alle zu bearbeitenden Bestellungen
 	 */
+	
 	public void bestellungenEinlesen() {
 		try {
 			FileReader dateileser = new FileReader(input);
@@ -83,29 +111,15 @@ public class Berechnung {
 		}
 	}
 
-	public static void setInput(File f) {
-		input = new File(f.getAbsolutePath());
-	}
-	
-	public static void setNummernkreis(int v, int b) {
-		if( Math.abs(v) <=  Math.abs(b)){
-			von = Math.abs(v);
-			bis = Math.abs(b);
-		}else{
-			von = Math.abs(b);
-			bis = Math.abs(v);
-		}
-	}
-
 	/**
 	 * Befuellt Kisten mit den Inhalten der Bestellungen. Prueft zunaechst, ob
 	 * die Bestellung in eine bereits vorhandende Kiste passt. Erstellt
 	 * ansonsten eine neue Kiste.
 	 */
+	
 	public void befuelleKisten() {
 		int mtv;
 		boolean verpackt = false;
-		int i = 1;
 		for (Bestellung b : bestellungen) {
 			mtv = b.getMtv_nummer();
 			try {
@@ -118,6 +132,11 @@ public class Berechnung {
 				}
 
 				if (!verpackt) {
+					if(typ.getKisteByMtv(mtv).getVolumen() < b.getMenge()*b.getVolumen()) {
+						JOptionPane.showMessageDialog(null,
+								"Bestellung für einzelne Kiste zu groß!");
+						throw new KisteNotFoundException("Bestellung für einzelne Kiste zu groß!");
+					}
 					Kiste a = new Kiste(typ.getKisteByMtv(mtv).getVolumen(),
 							mtv, getNummer(), b.getBestellnummer());
 					a.setKunde(b.getKunde());
@@ -133,18 +152,10 @@ public class Berechnung {
 		}
 	}
 
-	private int getNummer() {
-		Random r = new Random();
-		int zahl = r.nextInt(bis-von+1);
-		while(benutzteNummern.contains(zahl)) {
-			zahl = r.nextInt(bis-von+1);
-		}
-		benutzteNummern.add(zahl);
-		return zahl;
-	}
 	/**
 	 * Sortiert alle Bestellungen nach Kunde und Volumen(absteigend)
 	 */
+	
 	public void sortiereBestellungen() {
 		int b;
 		for (int i = 0; i < bestellungen.size() - 1; i++) {
@@ -190,10 +201,18 @@ public class Berechnung {
 	/**
 	 * Erstellt die Ausgabe im gewuenschten Format.
 	 * 
-	 * @return ausgabe
+	 * Für Mitarbeiter: Tournummer
+	 *						Kunde
+	 *							Bestellnummer
+	 *								Kistennummer
+	 *									Artikel: Menge
+	 * 
+	 * Für Hochregallager: Artikel;Menge
+	 * 
+	 * @return Ausgabe zum erstellen der Dateien
 	 * @throws IOException
 	 */
-	@SuppressWarnings("resource")
+	
 	public String erstelleAusgabe() throws IOException {
 		String lastKunde = "", kunde = "";
 		int lastBestellnummer = 0, bestellnummer = 0;
@@ -249,7 +268,12 @@ public class Berechnung {
 		return ausgabeArbeiter.toString();
 	}
 
-	/*public void drucken() throws IOException {
+	
+	/**
+	 * Druckt die Datei für den Lagermitarbeiter direkt aus
+	 */
+	
+	public void drucken() throws IOException {
 		String ausdruck = "Ausgabedatei_Lagermitarbeiter.txt";
 		File ausdruckfile = new File(ausdruck);
 		if (Desktop.isDesktopSupported()) {
@@ -260,5 +284,5 @@ public class Berechnung {
 				e.printStackTrace();
 			}
 		}
-	}*/
+	}
 }

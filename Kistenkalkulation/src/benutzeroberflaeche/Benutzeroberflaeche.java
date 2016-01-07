@@ -64,8 +64,16 @@ public class Benutzeroberflaeche {
 				Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
+		
+		/**
+		 * Button zum auswhaelen der Dateien in folgender Reihenfolge:
+		 * 1. Bestellungsdatei
+		 * 2. Datei mit den Kistentypen
+		 */
+		
 		JButton btnDatei_auswaehlen = new JButton("Dateien auswaehlen");
 		GridBagConstraints gbc_btnDatei_auswaehlen = new GridBagConstraints();
+		gbc_btnDatei_auswaehlen.fill = GridBagConstraints.BOTH;
 		gbc_btnDatei_auswaehlen.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDatei_auswaehlen.gridx = 0;
 		gbc_btnDatei_auswaehlen.gridy = 0;
@@ -90,6 +98,7 @@ public class Benutzeroberflaeche {
 
 		JButton btnFuellgrad_setzen = new JButton("Fuellgrad setzen");
 		GridBagConstraints gbc_btnFuellgrad_setzen = new GridBagConstraints();
+		gbc_btnFuellgrad_setzen.fill = GridBagConstraints.BOTH;
 		gbc_btnFuellgrad_setzen.insets = new Insets(0, 0, 5, 0);
 		gbc_btnFuellgrad_setzen.gridx = 0;
 		gbc_btnFuellgrad_setzen.gridy = 1;
@@ -107,6 +116,7 @@ public class Benutzeroberflaeche {
 		
 		JButton btnNummern_kreis = new JButton("Nummernkreis auswaehlen");
 		GridBagConstraints gbc_btnNummern_kreis = new GridBagConstraints();
+		gbc_btnNummern_kreis.fill = GridBagConstraints.BOTH;
 		gbc_btnNummern_kreis.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNummern_kreis.gridx = 0;
 		gbc_btnNummern_kreis.gridy = 2;
@@ -129,11 +139,18 @@ public class Benutzeroberflaeche {
 
 		JButton btnBerechnung_starten = new JButton("Berechnung bereit");
 		GridBagConstraints gbc_btnBerechnung_starten = new GridBagConstraints();
+		gbc_btnBerechnung_starten.fill = GridBagConstraints.BOTH;
 		gbc_btnBerechnung_starten.gridx = 0;
 		gbc_btnBerechnung_starten.gridy = 3;
 		frame.getContentPane().add(btnBerechnung_starten,
 				gbc_btnBerechnung_starten);
 
+		
+		/**
+		 * Button zum starten der Berechnung.
+		 * Die Berechnung wird nach dem Klick eingeleitet und zur gewünschten Zeit
+		 * ausgefuehrt. Bis dahin läuft das Programm im Hintergrund weiter.
+		 */
 		btnBerechnung_starten.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (ready) {
@@ -147,7 +164,7 @@ public class Benutzeroberflaeche {
 							now = new Date(System.currentTimeMillis());
 							hourNow = Integer.valueOf(hourFormatter.format(now));
 							
-							if(hourNow == 22) {
+							if(hourNow <= 22) { // Hier Zeitpunkt für den Start festlegen
 								new Berechnung();
 								window.frame.setVisible(true);
 								break;
